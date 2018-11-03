@@ -1,0 +1,15 @@
+html{
+    height: 100%;
+    width: 100%;
+}
+body {
+    height: 98%;
+    width: 98%;
+    vertical-align: middle;
+}
+#network {
+    width: 100%;
+    height: 100%;
+    border: 1px solid lightgray;
+}
+
