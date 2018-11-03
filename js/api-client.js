@@ -3,7 +3,8 @@ var request = require('request');
 var apiURL = 'http://localhost:8000/';
 
 module.exports = {
-    listQuestions: listQuestions
+    listQuestions: listQuestions,
+    listLinks: listLinks
 }
 
 function listQuestions(cb) {
@@ -11,7 +12,15 @@ function listQuestions(cb) {
         if (err) {
             return console.log(err);
         }
-        body.position = {x: 0, y:0};
+        cb(body);
+    });
+}
+
+function listLinks(cb) {
+    request(apiURL+'links/', {json: true}, function(err, response, body) {
+        if (err) {
+             return console.log(err);
+        }
         cb(body);
     });
 }
