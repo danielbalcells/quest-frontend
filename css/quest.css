@@ -6,10 +6,12 @@ body {
     height: 98%;
     width: 98%;
     vertical-align: middle;
+    background-color: black;
 }
 #network {
     width: 100%;
     height: 100%;
-    border: 1px solid lightgray;
 }
-
+#titleTooltip {
+    font-family: helvetica;
+}
