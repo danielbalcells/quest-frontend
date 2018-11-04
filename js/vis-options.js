@@ -4,6 +4,8 @@ module.exports = {
     edgesOptions: edgesOptions,
     layoutOptions: layoutOptions,
     interactionOptions: interactionOptions,
+    manipulationOptions: manipulationOptions,
+    physicsOptions: physicsOptions,
     formatNodeTitle: formatNodeTitle 
 }
 
@@ -11,32 +13,22 @@ function nodesOptions() {
     return {
         borderWidthSelected: 5,
         color: {
-            border: '#10b0ea',
+            border: '#078cbc',
             background: '#97dcf4',
             highlight: {
-                border: '#97dcf4',
+                border: '#def2f9',
                 background: '#10b0ea'
             },
             hover: {
-                border: '#50bee5',
+                border: '#def2f9',
                 background: '#c4e6f2'
             }
         },
         font: {
             face: 'helvetica'
         },
-        // labelHighlightBold: true,
         margin: 15,
-        // scaling: {
-            // label: {
-                // enabled: true,
-                // drawThreshold: 8,
-            // }
-        // },
-        shape: 'box',
-        shapeProperties: {
-            borderRadius: 25
-        },
+        shape: 'dot',
         widthConstraint: {
             maximum: 140,
         }
@@ -58,20 +50,32 @@ function edgesOptions() {
         },
         // TODO: do this with a callback
         // hoverWidth: function (width) {return width*2.5;},
+        // length: 500,
         scaling: {
             min: 1,
             max: 15
         },
         smooth: {
             type: 'continuous',
-            roundness: 0.3
+            roundness: 0.4
         },
-        value: 5
+        value: 2
     }
 }
 
 function layoutOptions() {
     return {}
+}
+
+function physicsOptions() {
+    return {
+        solver: 'repulsion',
+        repulsion: {
+            nodeDistance: 350,
+            springLength: 150,
+            springConstant: 0.003
+        },
+    }
 }
 
 function interactionOptions() {
@@ -82,12 +86,27 @@ function interactionOptions() {
     }
 }
 
+function manipulationOptions() {
+    return {
+        enabled: false,
+        addNode: function(nodeData, callback) {
+            nodeData.label = '';
+            callback(nodeData);
+        },
+        editNode: function(nodeData, callback) {
+            callback(nodeData);
+        },
+    }
+}
+
 function options() {
     return {
         nodes: nodesOptions(),
         edges: edgesOptions(),
         layout: layoutOptions(),
-        interaction: interactionOptions()
+        interaction: interactionOptions(),
+        manipulation: manipulationOptions(),
+        physics: physicsOptions(),
     }
 }
 

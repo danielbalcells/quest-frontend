@@ -5,25 +5,34 @@ var api = require('./api-client');
 var nodes = new vis.DataSet([]);
 var edges = new vis.DataSet([]);
 
+const sizeIncreasePerLink = 7;
+
 // Get questions from API
 api.listQuestions(function(questions) {
     questions.forEach(function(question) {
         nodes.add({
             id: question.id,
-            title: visOptions.formatNodeTitle(question.text)
+            title: visOptions.formatNodeTitle(question.text),
+            size: 10,
+        });
+    });
+    // Get links from API
+    api.listLinks(function(links) {
+        links.forEach(function(link) {
+            edges.add({
+                from: link.source,
+                to: link.target
+            });
+            source = nodes.get(link.source);
+            source.size += sizeIncreasePerLink;
+            target = nodes.get(link.target);
+            target.size += sizeIncreasePerLink;
+            nodes.update([source, target]);
         });
     });
 });
 
-// Get links from API
-api.listLinks(function(links) {
-    links.forEach(function(link) {
-        edges.add({
-            from: link.source,
-            to: link.target
-        });
-    });
-});
+console.log(nodes);
 
 // create a network
 var container = document.getElementById('network');
